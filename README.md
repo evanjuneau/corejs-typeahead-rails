@@ -8,7 +8,7 @@ This gem includes the standard and minified versions of the assets.
 
 This gem is forked from [Yousef Ourabi's twitter-typeahead-rails gem](https://github.com/yourabi/twitter-typeahead-rails) but is reconfigured to track the CoreJS fork with updated and tagged versions.
 
-Currently this gem tracks corejs-typeahead v1.1.1.
+Currently this gem tracks corejs-typeahead v1.2.0.
 
 ## Installation
 
