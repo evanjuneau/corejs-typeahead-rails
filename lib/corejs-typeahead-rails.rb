@@ -1,6 +1,6 @@
-require "twitter-typeahead-rails/version"
+require "corejs-typeahead-rails/version"
 
-module Twitter
+module CoreJS
   module Typeahead
     module Rails
       class Engine < ::Rails::Engine
