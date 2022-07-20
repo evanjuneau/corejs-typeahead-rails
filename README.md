@@ -8,7 +8,7 @@ This gem includes the standard and minified versions of the assets.
 
 This gem is forked from [Yousef Ourabi's twitter-typeahead-rails gem](https://github.com/yourabi/twitter-typeahead-rails) but is reconfigured to track the CoreJS fork with updated and tagged versions.
 
-Currently this gem tracks corejs-typeahead 1.0.0-beta.
+Currently this gem tracks corejs-typeahead v1.0.1.
 
 ## Installation
 
@@ -47,7 +47,7 @@ See the documentation and examples on how to use the library at [CoreJS's reposi
 
 ## Issues
 
-For issues related to the typeahead.js library itself, please create an issue on the [CoreJS typeahead.js GitHub repository](https://github.com/corejavascript/typeahead.js/issues). For issues related to this gem, please report an issue here!
+For issues related to the typeahead.js library itself, please create an issue on the [CoreJS typeahead.js GitHub repository](https://github.com/corejavascript/typeahead.js/issues). For issues related to this gem, please create an issue here!
 
 ## Contributing
 
