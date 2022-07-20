@@ -1,15 +1,16 @@
 /*!
- * typeahead.js 1.2.0
- * https://github.com/twitter/typeahead.js
- * Copyright 2013-2017 Twitter, Inc. and other contributors; Licensed MIT
+ * typeahead.js 1.3.0
+ * https://github.com/corejavascript/typeahead.js
+ * Copyright 2013-2019 Twitter, Inc. and other contributors; Licensed MIT
  */
+
 
 (function(root, factory) {
     if (typeof define === "function" && define.amd) {
         define([ "jquery" ], function(a0) {
             return root["Bloodhound"] = factory(a0);
         });
-    } else if (typeof exports === "object") {
+    } else if (typeof module === "object" && module.exports) {
         module.exports = factory(require("jquery"));
     } else {
         root["Bloodhound"] = factory(root["jQuery"]);
@@ -158,7 +159,7 @@
             noop: function() {}
         };
     }();
-    var VERSION = "1.2.0";
+    var VERSION = "1.3.0";
     var tokenizers = function() {
         "use strict";
         return {
@@ -956,7 +957,7 @@
         define([ "jquery" ], function(a0) {
             return factory(a0);
         });
-    } else if (typeof exports === "object") {
+    } else if (typeof module === "object" && module.exports) {
         module.exports = factory(require("jquery"));
     } else {
         factory(root["jQuery"]);
@@ -1843,8 +1844,12 @@
                 pending: templates.pending && _.templatify(templates.pending),
                 header: templates.header && _.templatify(templates.header),
                 footer: templates.footer && _.templatify(templates.footer),
-                suggestion: templates.suggestion || suggestionTemplate
+                suggestion: templates.suggestion ? userSuggestionTemplate : suggestionTemplate
             };
+            function userSuggestionTemplate(context) {
+                var template = templates.suggestion;
+                return $(template(context)).attr("id", _.guid());
+            }
             function suggestionTemplate(context) {
                 return $('<div role="option">').attr("id", _.guid()).text(displayFn(context));
             }
@@ -2203,8 +2208,10 @@
                 var $selectable;
                 if ($selectable = this.menu.getActiveSelectable()) {
                     this.select($selectable) && $e.preventDefault();
-                } else if ($selectable = this.menu.getTopSelectable()) {
-                    this.autocomplete($selectable) && $e.preventDefault();
+                } else if (this.autoselect) {
+                    if ($selectable = this.menu.getTopSelectable()) {
+                        this.autocomplete($selectable) && $e.preventDefault();
+                    }
                 }
             },
             _onEscKeyed: function onEscKeyed() {
@@ -2356,7 +2363,9 @@
                 if (!cancelMove && !this.eventBus.before("cursorchange", suggestion, datasetName)) {
                     this.menu.setCursor($candidate);
                     if (data) {
-                        this.input.setInputValue(data.val);
+                        if (typeof data.val === "string") {
+                            this.input.setInputValue(data.val);
+                        }
                     } else {
                         this.input.resetInputValue();
                         this._updateHint();
